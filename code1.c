@@ -4,9 +4,15 @@
 #include <string.h>
 #include <ctype.h>
 
+void clear_input_buffer(){
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int menu (double *choice){
     int validation, flag;
     double int_part;
+    char next_char;
 
     
     printf("\nPlease type a number from the list below:\n\
@@ -19,20 +25,18 @@ int menu (double *choice){
             7. Exit\n\n");
     
     printf("--> Select your choice and press 'Enter': ");
-    validation =  scanf("%lf", choice);
-    if(validation != 1 || *choice > 7 || *choice < 1 || modf(*choice, &int_part) != 0.0){
-    //if(modf(*choice, &int_part) != 0.0){
+    validation =  scanf("%lf%c", choice, &next_char);
+    if(validation != 2 || *choice > 7 || *choice < 1 || modf(*choice, &int_part) != 0.0 || (!isspace(next_char))){
         printf("\n\nYou Entered an invalid choice. Press Enter to go back to menu\n\n");
+        //fflush(stdin);  ==> removing this as it's not standard in C, meaning it works in some systems but not others. Avoid it to make code portable
+        if(next_char != '\n')
         while(getchar() != '\n');
-        getchar();
-        fflush(stdin);
-        return 0; // OR Use this ---> fflush(stdin);
+        clear_input_buffer();
+        return 0;
     }
-    fflush(stdin);
-    return 1;
-    
-    
+    return 1;  
 }
+
 
 
 
@@ -107,6 +111,7 @@ void pyramid(){
 
     int i, j, k, validation;
     double n, int_part;
+    
 
 
     printf("\nEnter half the base of the Pyramid: ");
@@ -135,8 +140,10 @@ void pyramid(){
     }
     printf("\n");
     printf("\n\nPress Enter to go back to menu\n\n");
-    while(getchar() != '\n');
+
     getchar();
+    clear_input_buffer();
+    
 }
 
 
@@ -303,7 +310,6 @@ int main (){
                 palindrome();
                 break;
         }
-
     }while(choice != 7);
    
     return 0;
