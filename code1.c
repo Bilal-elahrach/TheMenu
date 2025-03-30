@@ -50,14 +50,17 @@ void sorting (){
         validation = scanf("%lf", &num);
         if(validation != 1 || num > 21000){
             printf("\nYou Entered an invalid choice. Try again\n\n");
-            fflush(stdin);
+            //fflush(stdin);
+            clear_input_buffer();
             continue;
         }
         if(num == 0){
-            fflush(stdin);
+            //fflush(stdin);
+            clear_input_buffer();
             break;
         }
-        fflush(stdin);
+        //fflush(stdin);
+        clear_input_buffer();
         size ++;
         arr = (double*)realloc(arr, size * sizeof(double));
         arr[size-1] = num;
