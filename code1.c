@@ -91,13 +91,13 @@ void sorting (){
         if(modf(arr[i], &int_part) != 0.0){
             printf("%.1f ", arr[i]);
             if(i < size-1)
-            printf("> ");
+            printf(">= ");
 
         }
         else{
             printf("%d ", (int)arr[i]);
             if(i < size-1)
-            printf("> ");
+            printf(">= ");
         }
     }
 
@@ -114,15 +114,13 @@ void pyramid(){
 
     int i, j, k, validation;
     double n, int_part;
-    
-
 
     printf("\nEnter half the base of the Pyramid: ");
     validation = scanf("%lf", &n);
     while(1){
         if(modf(n, &int_part) != 0.0 || validation != 1 || n > 97){
             printf("\nThe number you entered is not valid.\nEnter a valid integer: ");
-            fflush(stdin);
+            clear_input_buffer();
             validation = scanf("%lf", &n);   
             continue;
         }
@@ -144,8 +142,9 @@ void pyramid(){
     printf("\n");
     printf("\n\nPress Enter to go back to menu\n\n");
 
-    getchar();
+
     clear_input_buffer();
+  
     
 }
 
@@ -159,7 +158,8 @@ void pushups() {
     while(1){
         if(modf((double)n, &int_part) != 0.0 || validation != 1 || n < 0 || n > 21000){
             printf("\nThe number you entered is not valid.\nEnter a valid integer: ");
-            fflush(stdin);
+            // fflush(stdin);
+            clear_input_buffer();
             validation = scanf("%d", &n);   
             continue;
         }
@@ -187,7 +187,8 @@ void factorial() {
     while(1){
         if(modf((double)n, &int_part) != 0.0 || validation != 1 || n < 0 || n > 21000){
             printf("\nThe number you entered is not valid.\nEnter a valid integer: ");
-            fflush(stdin);
+            // fflush(stdin);
+            clear_input_buffer();
             validation = scanf("%d", &n);   
             continue;
         }
