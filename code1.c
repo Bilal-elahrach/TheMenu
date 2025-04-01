@@ -127,7 +127,8 @@ void pyramid(){
         break;
     }
 
-    for(j=1; j<= n; j++){
+    //method 1 - I don't remember if it was me or AI
+    /*for(j=1; j<= n; j++){
         printf("\n");
         k = n-j;
         while(k>0){
@@ -138,14 +139,25 @@ void pyramid(){
             printf("**");
         }
         
+    }*/
+
+    //method 2 - I built this one
+    for(i=1; i<=n; i++){
+        printf("\n");
+        for(j=0; j<n-i; j++){
+            printf(" ");
+        }
+        for(k=0; k<i; k++){
+            printf("**");
+        }
     }
+
     printf("\n");
     printf("\n\nPress Enter to go back to menu\n\n");
-
+    while(getchar() != '\n');
 
     clear_input_buffer();
   
-    
 }
 
 
