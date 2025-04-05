@@ -212,7 +212,6 @@ void factorial() {
     }
     printf("\nThe factorial of %d (or %d!)is: %d\n", n, n, res);
     
-    printf("\n");
     printf("\n\nPress Enter to go back to menu\n\n");
     while(getchar() != '\n');
     getchar();
@@ -221,7 +220,6 @@ void factorial() {
 
 void vowel_consonant(){
 
-    
     int i, size = 1, vowel = 0, consonant = 0;
     char* str = (char*) malloc(size * sizeof(char));
     char c;
@@ -266,19 +264,21 @@ void vowel_consonant(){
 void palindrome(){
 
     int size = 1, i, j;
-    char *str = (char*)malloc(size * sizeof(char));
+    char *str = NULL;
     char c;
     
     printf("\nEnter a string: ");
     do{
         c = getchar();
         if(c == '\n')
-        continue;
+        break;
         //printf(" ! %c ! \n", c);
+        str = (char*)realloc(str, (size+1) * sizeof(char));
         str[size-1] = c;
+        str[size] = '\0';
         size++;
-        str = (char*)realloc(str, size * sizeof(char));
-    }while(c != '\n');
+        // str = (char*)realloc(str, size * sizeof(char));
+    }while(1);
     j = strlen(str)-1;
     for(i = 0; i < strlen(str); i++){
         if(str[i] != str[j]){
@@ -291,7 +291,8 @@ void palindrome(){
     if(i == strlen(str))
     printf("\nThe string %s is a palindrome !\n", str);
 
-    printf("\n");
+    free(str);
+
     printf("\n\nPress Enter to go back to menu\n\n");
     while(getchar() != '\n');
 
