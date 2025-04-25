@@ -11,32 +11,32 @@ typedef struct Node {
 }Node;
 
 Node* createNode(int data){
-    Node* newnode;
+    Node* new; //Declares a pointer to a Node struc that we name new
 
-    newnode = (Node*)malloc(sizeof(Node));
+    new = (Node*)malloc(sizeof(Node));  //Creates memory on the heap for a Node struct
 
-    if(!newnode){
+    if(!new){
         printf("\nNo memory allocation\n");
         exit(1);
     }
 
-    newnode->data = data;
-    newnode->next = NULL;
+    new->data = data;
+    new->next = NULL;
 
-    return newnode;
+    return new;
 }
 
 void insertNode(Node** head, int data){
     /* why the Double pointer for head: 
     in order to change the address of head, we need to pass its address, 
-    but since head is an address, then we're pasing the address of an address, 
+    but since head is an address, then we're passing the address of an address, 
     hence the double pointer
     */
-    Node* newnode;
+    Node* new;
 
-    newnode = createNode(data);
-    newnode->next = *head;
-    *head = newnode;
+    new = createNode(data);
+    new->next = *head; //Make new->next point to whatever *head is pointing to
+    *head = new; //Make *head point to new
 }
 
 void printList(Node* head){
@@ -44,7 +44,10 @@ void printList(Node* head){
     because we're not changing its address
     */
    Node* current;
+
    current = head;
+   printf("\n");
+
    while(current != NULL){
     printf("%d -> ", current->data);
     current = current->next;
@@ -55,12 +58,20 @@ void printList(Node* head){
 
 
 int main () {
-    Node* head = NULL; //Initialize empty list
+    Node* head = NULL;
+    int value;
 
-    insertNode(&head, 5);
-    insertNode(&head, 10);
-    insertNode(&head, 15);
+    do{
+        printf("Enter Value of the new Node or 0 to display the result: ");
+        scanf("%d", &value);
+        if(value != 0){
+            insertNode(&head, value);
+            continue;
+        };
+        break;
+    }while(1);
 
+    if(value == 0)
     printList(head);
 
     return 0;
