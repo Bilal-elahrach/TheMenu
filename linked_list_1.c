@@ -55,6 +55,23 @@ void printList(Node* head){
    printf("NULL\n");
 }
 
+void insertNodeEnd(Node** head, int data){
+    Node* current = *head;
+    Node* new;
+
+    new = createNode(data);
+
+    if(*head == NULL){
+        *head = new;
+        return;
+    }
+    while(current->next != NULL){
+        current = current->next;
+    };
+    current->next = new;
+
+}
+
 
 
 int main () {
@@ -65,7 +82,7 @@ int main () {
         printf("Enter Value of the new Node or 0 to display the result: ");
         scanf("%d", &value);
         if(value != 0){
-            insertNode(&head, value);
+            insertNodeEnd(&head, value);
             continue;
         };
         break;
