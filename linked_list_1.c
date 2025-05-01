@@ -72,6 +72,33 @@ void insertNodeEnd(Node** head, int data){
 
 }
 
+void deleteNode(Node** head, int data){
+    Node* current;
+    Node* precurrent;
+
+    current = *head;
+    precurrent = NULL;
+
+    if(*head == NULL){
+        printf("\nLinked List is empty\n");
+        return;
+    }
+    while(current != NULL && current->data != data){
+        precurrent = current;
+        current = current ->next;
+    }
+    if(current == NULL){
+        printf("\n%d Node not found\n", data);
+        return;
+    }
+    if(precurrent == NULL){
+        *head = current->next;
+    }
+    else{
+        precurrent->next = current->next;
+    }
+    free(current);
+}
 
 
 int main () {
@@ -98,7 +125,14 @@ int main () {
         printList(tail);
 
     }
-    
 
+    printf("\nNow, we are going to delete a node from Prepend.\n\nNode to delete: ");
+    scanf("%d", &value);
+    printf("Original Prepend: ");
+    printList(head);
+    deleteNode(&head, value);
+    printf("\nNew Prepend: ");
+    printList(head);
+    
     return 0;
 }
