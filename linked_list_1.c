@@ -100,11 +100,24 @@ void deleteNode(Node** head, int data){
     free(current);
 }
 
+int countNodes(Node* head){
+    int count = 0;
+    Node* current = head;
+
+    while(current != NULL){
+        count++;
+        current = current->next;
+    }
+
+    return count;
+}
+
 
 int main () {
     Node* head = NULL;
     Node* tail = NULL;
     int value;
+    int count;
 
     do{
         printf("Enter Value of the new Node or 0 to display the result: ");
@@ -133,6 +146,8 @@ int main () {
     deleteNode(&head, value);
     printf("\nNew Prepend: ");
     printList(head);
+
+    printf("\nNext, we count the nodes in Prepend.\nThat would be: %d Nodes", count = countNodes(head));
     
     return 0;
 }
