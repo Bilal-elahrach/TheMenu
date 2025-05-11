@@ -75,28 +75,23 @@ void insertNodeEnd(Node** head, int data){
 }
 
 void reverseList(Node** head) {
-    int flag = 0;
+
     Node* current = *head;
-    Node* precurrent = NULL;
+    Node* pre = NULL;
+    Node* post = NULL;
 
     if(*head == NULL || (*head)->next == NULL){
-        if(*head == NULL){
-            printf("\nlinked list is empty\n");
-            return;
-        }
-        printf("\nlinked list contains only 1 node, reverse is therefore the same\n");
-        exit(1);
+        //ternary operator (? :) <=> condition ? valueifTrue : valueifFalse
+        printf("\n%s\n", *head ? "Single node, no reverse needed" : "List empty");
+        return;
     }
     while(current != NULL){
-        precurrent = current;
-        current = current->next;
-        if(flag == 0){
-            precurrent->next = NULL;
-            flag = 1;
-            continue;
-        }
-        prependNode(head, precurrent);
+        post = current->next;
+        current->next = pre;
+        pre = current;
+        current = post;
     }
+    *head = pre;
 }
 
 
