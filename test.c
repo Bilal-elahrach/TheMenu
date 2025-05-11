@@ -3,44 +3,85 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-#include "linked_list_1.h"
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+}Node;
+
+Node* createNode(int data){
+    Node* new; //Declares a pointer to a Node struc that we name new
+
+    new = (Node*)malloc(sizeof(Node));  //Creates memory on the heap for a Node struct
+
+    if(!new){
+        printf("\nNo memory allocation\n");
+        exit(1);
+    }
+
+    new->data = data;
+    new->next = NULL;
+
+    return new;
+}
+void printList(Node* head){
+    /* we are passing head as a single pointer 
+    because we're not changing its address
+    */
+   Node* current;
+
+   current = head;
+   printf("\n");
+
+   while(current != NULL){
+    printf("%d -> ", current->data);
+    current = current->next;
+   }
+   printf("NULL\n\n");
+}
+void prependNode(Node** head){
+    
+}
+
+void insertNodeEnd(Node** head, int data){
+    Node* current = *head;
+    Node* new;
+
+    new = createNode(data);
+
+    if(*head == NULL){
+        *head = new;
+        return;
+    }
+    while(current->next != NULL){
+        current = current->next;
+    }
+    current->next = new;
+
+}
+
+void revereList() {
+
+}
 
 
 int main () {
-    Node* head = NULL;
-    Node* tail = NULL;
     int value;
-    int count;
+    Node* head = NULL;
 
-    do{
-        printf("Enter Value of the new Node or 0 to display the result: ");
+    printf("\n");
+    while(value != 0){
+        printf("Node Value (0 to exit): ");
         scanf("%d", &value);
-        if(value != 0){
-            insertNode(&head, value);
-            insertNodeEnd(&tail, value);
-            continue;
-        };
+        if(value == 0)
         break;
-    }while(1);
-
-    if(value == 0){
-        printf("\nPrepend: ");
-        printList(head);
-        
-        printf("Append: ");
-        printList(tail);
-
+        insertNodeEnd(&head, value);
     }
+    while(getchar() != '\n');
+    printf("\nPress enter to continue...\n");
+    getchar();
 
-    printf("\nNow, we are going to delete a node from Prepend.\n\nNode to delete: ");
-    scanf("%d", &value);
-    printf("Original Prepend: ");
-    printList(head);
-    deleteNode(&head, value);
-    printf("\nNew Prepend: ");
     printList(head);
 
-    printf("\nNext, we count the nodes in Prepend.\nThat would be: %d Nodes", count = countNodes(head));
-    
     return 0;
 }
