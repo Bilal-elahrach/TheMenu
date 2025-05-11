@@ -39,8 +39,22 @@ void printList(Node* head){
    }
    printf("NULL\n\n");
 }
-void prependNode(Node** head){
-    
+
+int countNodes(Node* head){
+    int count = 0;
+    Node* current = head;
+
+    while(current != NULL){
+        count++;
+        current = current->next;
+    }
+
+    return count;
+}
+
+void prependNode(Node** head, Node* node){
+    node->next = *head;
+    *head = node;
 }
 
 void insertNodeEnd(Node** head, int data){
@@ -60,8 +74,29 @@ void insertNodeEnd(Node** head, int data){
 
 }
 
-void revereList() {
+void reverseList(Node** head) {
+    int flag = 0;
+    Node* current = *head;
+    Node* precurrent = NULL;
 
+    if(*head == NULL || (*head)->next == NULL){
+        if(*head == NULL){
+            printf("\nlinked list is empty\n");
+            return;
+        }
+        printf("\nlinked list contains only 1 node, reverse is therefore the same\n");
+        exit(1);
+    }
+    while(current != NULL){
+        precurrent = current;
+        current = current->next;
+        if(flag == 0){
+            precurrent->next = NULL;
+            flag = 1;
+            continue;
+        }
+        prependNode(head, precurrent);
+    }
 }
 
 
@@ -81,6 +116,10 @@ int main () {
     printf("\nPress enter to continue...\n");
     getchar();
 
+    printList(head);
+    reverseList(&head);
+
+    printf("Reversed linked list:");
     printList(head);
 
     return 0;
