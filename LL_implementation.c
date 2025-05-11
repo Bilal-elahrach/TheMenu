@@ -108,3 +108,23 @@ int countNodes(Node* head){
 
     return count;
 }
+
+void reverseList(Node** head) {
+
+    Node* current = *head;
+    Node* pre = NULL;
+    Node* post = NULL;
+
+    if(*head == NULL || (*head)->next == NULL){
+        //ternary operator (? :) <=> condition ? valueifTrue : valueifFalse
+        printf("\n%s\n", *head ? "Single node, no reverse needed" : "List empty");
+        return;
+    }
+    while(current != NULL){
+        post = current->next;
+        current->next = pre;
+        pre = current;
+        current = post;
+    }
+    *head = pre;
+}

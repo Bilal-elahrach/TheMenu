@@ -12,4 +12,6 @@ void printList(Node* head);
 void insertNodeEnd(Node** head, int data);
 void deleteNode(Node** head, int data);
 int countNodes(Node* head);
+void reverseList(Node** head);
+
 #endif

@@ -40,7 +40,11 @@ int main () {
     printf("\nNew Prepend: ");
     printList(head);
 
-    printf("\nNext, we count the nodes in Prepend.\nThat would be: %d Nodes", count = countNodes(head));
+    printf("\nNext, we count the nodes in Prepend.\nThat would be: %d Nodes\n", count = countNodes(head));
+
+    printf("\nnow, finally, we will reverse the New Prepend list.\n");
+    reverseList(&head);
+    printList(head);
     
     return 0;
 }
