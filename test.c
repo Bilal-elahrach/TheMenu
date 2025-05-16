@@ -3,119 +3,92 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
+#include "Stack_header.h"
 
-typedef struct Node {
-    int data;
-    struct Node* next;
-}Node;
 
-Node* createNode(int data){
-    Node* new; //Declares a pointer to a Node struc that we name new
+Node* createNode(int data) {
+    Node* node;
 
-    new = (Node*)malloc(sizeof(Node));  //Creates memory on the heap for a Node struct
+    node = (Node*)malloc(sizeof(Node)); //allocates memory on the heap for the new node of type Node
 
-    if(!new){
-        printf("\nNo memory allocation\n");
+    if(!node){
+        printf("\nNo memory allocation");
         exit(1);
     }
 
-    new->data = data;
-    new->next = NULL;
+    node->data = data;
+    node->next = NULL;
 
-    return new;
-}
-void printList(Node* head){
-    /* we are passing head as a single pointer 
-    because we're not changing its address
-    */
-   Node* current;
-
-   current = head;
-   printf("\n");
-
-   while(current != NULL){
-    printf("%d -> ", current->data);
-    current = current->next;
-   }
-   printf("NULL\n\n");
+    return node;
 }
 
-int countNodes(Node* head){
-    int count = 0;
-    Node* current = head;
+void push(Node** top, int data){
+    Node* node = createNode(data);
 
-    while(current != NULL){
-        count++;
-        current = current->next;
-    }
-
-    return count;
+    node->next = *top;
+    *top = node;
+    return;
 }
 
-void prependNode(Node** head, Node* node){
-    node->next = *head;
-    *head = node;
-}
-
-void insertNodeEnd(Node** head, int data){
-    Node* current = *head;
-    Node* new;
-
-    new = createNode(data);
-
-    if(*head == NULL){
-        *head = new;
+void printStack(Node* top){
+    
+    printf("\nTop -> ");
+    if(top == NULL){
+        printf("NULL\n\n");
         return;
     }
-    while(current->next != NULL){
-        current = current->next;
+    while(top != NULL){
+        printf("%d -> ", top->data);
+        top = top->next;
     }
-    current->next = new;
-
+    printf("NULL\n\n");
+    return;
 }
 
-void reverseList(Node** head) {
+void pop(Node** top){
+    Node* temp;
 
-    Node* current = *head;
-    Node* pre = NULL;
-    Node* post = NULL;
-
-    if(*head == NULL || (*head)->next == NULL){
-        //ternary operator (? :) <=> condition ? valueifTrue : valueifFalse
-        printf("\n%s\n", *head ? "Single node, no reverse needed" : "List empty");
+    if (*top == NULL){
+        printf("\nEmpty Stack\n");
         return;
     }
-    while(current != NULL){
-        post = current->next;
-        current->next = pre;
-        pre = current;
-        current = post;
-    }
-    *head = pre;
+
+    temp = *top;
+    *top = temp->next;
+    free(temp);
+    return;
 }
 
 
-int main () {
-    int value;
-    Node* head = NULL;
 
-    printf("\n");
-    while(value != 0){
-        printf("Node Value (0 to exit): ");
-        scanf("%d", &value);
-        if(value == 0)
-        break;
-        insertNodeEnd(&head, value);
+int main() {
+    Node* top = NULL;
+    int data;
+
+    printf("\t##### Stacking Stage #####");
+    while(1){
+        printf("\nNew node (or 0 to exit): ");
+        scanf("%d", &data);
+        if(data == 0)
+            break;
+        push(&top, data);
     }
-    while(getchar() != '\n');
-    printf("\nPress enter to continue...\n");
-    getchar();
 
-    printList(head);
-    reverseList(&head);
+    printStack(top);
 
-    printf("Reversed linked list:");
-    printList(head);
+    printf("\t##### Popping Stage #####");
+    do{
+        printf("\nPress 1 to pop (0 to exit)");
+        scanf("%d", &data);
+        if(data == 0){
+            break;
+        }
+        pop(&top);
+        printStack(top);
+    }while(1);
+
+    printf("\nComeagain");
+    
 
     return 0;
 }
